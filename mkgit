@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# This is a multiline comment
+<< eof	
+	This is a script that shortcuts the git commands for a usual
+	add, commit, push workflow.
+eof
+
+for i in $@; do
+	git add "$i"
+done
+
+git commit 
+git push
