@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# Check for updates
+
+# Function to run command and check for errors
+function run_command {
+  local command_result
+
+  command_result="$( "$@" 2>&1 >/dev/null)"
+
+  if [[ $? -ne 0 ]]; then
+    echo "Error running command: $command_result" >&2
+    exit 1 
+  fi
+}
+
+<<com
+echo "________________________UPDATING_________________________"
+if ! sudo apt update; then
+	echo 
+fi
+
+# Upgrade if last command was run properly
+	echo "________________________UPGRADING_________________________"
+	sudo apt full-upgrade
+com
+
+# Install the packages passed
+for i in $@; do
+	sudo apt install $i
+
+	# Check if last command was run properly
+	if [[ $? -eq 0 ]]; then
+		echo "ERROR: $i is invalid"
+		continue
+	fi
+done

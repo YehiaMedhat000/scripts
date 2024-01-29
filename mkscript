@@ -1,0 +1,11 @@
+#!/bin/bash
+
+SCRIPT=$1
+ENTRY="#!/bin/bash"
+
+echo $ENTRY > $SCRIPT
+
+#if [[$? -eq 0]]; then
+#fi
+chmod u+x $SCRIPT
+nvim $SCRIPT
