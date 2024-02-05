@@ -1,10 +1,12 @@
 #!/bin/bash
 
-# This is a multiline comment
-<< eof	
-	This is a script that shortcuts the git commands for a usual
-	add, commit, push workflow.
-eof
+# This is a script that shortcuts the git commands for a usual
+# add, commit, push workflow.
+
+if [[ $# -lt 1 ]]; then
+	git status
+	exit 1
+fi
 
 for i in $@; do
 	git add "$i"
