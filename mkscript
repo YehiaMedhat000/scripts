@@ -1,11 +1,21 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-SCRIPT=$1
-ENTRY="#!/bin/bash"
+SHEBANG="#!/usr/bin/env bash"
 
-echo $ENTRY > $SCRIPT
+create() {
+    echo "$SHEBANG" > "$1"
+    chmod u+x "$1"
+}
 
-#if [[$? -eq 0]]; then
-#fi
-chmod u+x $SCRIPT
-nvim $SCRIPT
+if [ $# -lt 1 ]; then
+
+    echo "ERROR: GIVE AN ARGUMENT NAME FOR YOUR SCRIPT"
+    exit 0
+
+elif [ $# -gt 1 ]; then
+
+    # For multiple script on once
+    for script in "$@"; do
+        create "$script"
+    done
+fi
